@@ -4,7 +4,7 @@ namespace JiraRestApi\Project;
 
 use JiraRestApi\Issue\IssueType;
 use JiraRestApi\Issue\Reporter;
-use JiraRestApi\Issue\Version;
+use JiraRestApi\Version\Version;
 
 class ProjectService extends \JiraRestApi\JiraClient
 {
@@ -184,7 +184,7 @@ class ProjectService extends \JiraRestApi\JiraClient
         $json = json_decode($ret);
 
         $prjs = $this->json_mapper->mapArray(
-            $json->values, new \ArrayObject(), '\JiraRestApi\Issue\Version'
+            $json->values, new \ArrayObject(), '\JiraRestApi\Version\Version'
         );
 
         return $prjs;
@@ -206,7 +206,7 @@ class ProjectService extends \JiraRestApi\JiraClient
         $this->log->addInfo('Result='.$ret);
 
         $prjs = $this->json_mapper->mapArray(
-            json_decode($ret, false), new \ArrayObject(), '\JiraRestApi\Issue\Version'
+            json_decode($ret, false), new \ArrayObject(), '\JiraRestApi\Version\Version'
         );
 
         return $prjs;

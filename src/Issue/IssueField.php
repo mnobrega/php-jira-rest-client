@@ -3,6 +3,7 @@
 namespace JiraRestApi\Issue;
 
 use JiraRestApi\ClassSerialize;
+use JiraRestApi\Version\Version;
 
 class IssueField implements \JsonSerializable
 {
@@ -74,7 +75,7 @@ class IssueField implements \JsonSerializable
     /** @var Reporter|null */
     public $assignee;
 
-    /** @var \JiraRestApi\Issue\Version[] */
+    /** @var \JiraRestApi\Version\Version[] */
     public $versions;
 
     /** @var \JiraRestApi\Issue\Attachment[] */

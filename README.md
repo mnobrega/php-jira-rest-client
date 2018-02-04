@@ -221,7 +221,7 @@ get all project's versions.
 require 'vendor/autoload.php';
 
 use JiraRestApi\Project\ProjectService;
-use JiraRestApi\Issue\Version;
+use JiraRestApi\Version\Version;
 use JiraRestApi\JiraException;
 
 try {
@@ -246,7 +246,7 @@ or get pagenated project's versions.
 require 'vendor/autoload.php';
 
 use JiraRestApi\Project\ProjectService;
-use JiraRestApi\Issue\Version;
+use JiraRestApi\Version\Version;
 use JiraRestApi\JiraException;
 
 try {

@@ -1,6 +1,6 @@
 <?php
 
-namespace JiraRestApi\Issue;
+namespace JiraRestApi\Version;
 
 class Version implements \JsonSerializable
 {
@@ -23,10 +23,16 @@ class Version implements \JsonSerializable
     public $released;
 
     /** @var \DateTime|null */
+    public $startDate;
+
+    /** @var \DateTime|null */
     public $releaseDate;
 
     /** @var bool */
     public $overdue;
+
+    /** @var string|null */
+    public $userStartDate;
 
     /** @var string|null */
     public $userReleaseDate;

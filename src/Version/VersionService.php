@@ -2,7 +2,6 @@
 
 namespace JiraRestApi\Version;
 
-use JiraRestApi\Issue\Version;
 use JiraRestApi\JiraException;
 use JiraRestApi\Project\ProjectService;
 
