@@ -2,84 +2,104 @@
 
 namespace JiraRestApi\Version;
 
+use JiraRestApi\JiraClient;
 use JiraRestApi\JiraException;
-use JiraRestApi\Project\ProjectService;
 
-class VersionService extends \JiraRestApi\JiraClient
+class VersionService extends JiraClient
 {
     private $uri = '/version';
 
     /**
      * create version.
-     *
+     * @param $version
+     * @return Version|object
+     * @throws JiraException
+     * @throws \JsonMapper_Exception
      * @see https://docs.atlassian.com/jira/REST/server/#api/2/version-createVersion
      */
     public function create($version)
     {
-        throw new JiraException('create version not yet implemented');
+        $data = json_encode($version);
+        $this->log->addInfo("Create Version=\n".$data);
+        $ret = $this->exec($this->uri, $data, 'POST');
+        return $this->getVersionFromJson($ret);
     }
 
     /**
-     * Modify a version's sequence within a project.
-     *
-     * @param $version
-     *
      * @throws JiraException
      */
-    public function move($version)
+    public function move()
     {
         throw new JiraException('move version not yet implemented');
     }
 
     /**
-     * get project version.
-     *
-     * @param $id version id
-     *
-     * @return Version
-     *
-     * @see ProjectService::getVersions()
+     * @param integer $versionId
+     * @return Version|object
+     * @throws JiraException
+     * @throws \JsonMapper_Exception
      */
-    public function get($id)
+    public function get($versionId)
     {
-        $ret = $this->exec($this->uri.'/'.$id);
-
+        $ret = $this->exec($this->uri.'/'.$versionId);
         $this->log->addInfo('Result='.$ret);
-
-        $json = json_decode($ret);
-        $results = array_map(function ($elem) {
-            return $this->json_mapper->map($elem, new ProjectType());
-        }, $json);
-
-        return $results;
+        return $this->getVersionFromJson($ret);
     }
 
-    public function update($ver)
+    /**
+     * @param $versionId
+     * @param Version $version
+     * @return Version|object
+     * @throws JiraException
+     * @throws \JsonMapper_Exception
+     */
+    public function update($versionId, Version $version)
     {
-        throw new JiraException('update version not yet implemented');
+        $data = json_encode($version);
+        $this->log->addInfo("Update Version=\n".$data);
+        $ret = $this->exec($this->uri."/$versionId", $data, 'PUT');
+        return $this->getVersionFromJson($ret);
     }
 
-    public function delete($ver)
+    /**
+     * @param $versionId
+     * @return string
+     * @throws JiraException
+     */
+    public function delete($versionId)
     {
-        throw new JiraException('delete version not yet implemented');
+        $this->log->addInfo("deleteVersion=\n");
+        $ret = $this->exec($this->uri."/".$versionId,'','DELETE');
+        $this->log->addInfo('delete version '.$versionId." result=".var_export($ret,true));
+        return $ret;
     }
 
-    public function merge($ver)
+    /**
+     * @throws JiraException
+     */
+    public function merge()
     {
         throw new JiraException('merge version not yet implemented');
     }
 
     /**
-     * Returns a bean containing the number of fixed in and affected issues for the given version.
-     *
-     * @param $id int version id
-     *
      * @throws JiraException
-     *
-     * @see https://docs.atlassian.com/jira/REST/server/#api/2/version-getVersionRelatedIssues
      */
-    public function getRelatedIssues($id)
+    public function getRelatedIssues()
     {
         throw new JiraException('get version Related Issues not yet implemented');
+    }
+
+    /**
+     * @param $json
+     * @return Version|object
+     * @throws \JsonMapper_Exception
+     */
+    private function getVersionFromJson($json)
+    {
+        $version = $this->json_mapper->map(
+            json_decode($json), new Version()
+        );
+        return $version;
     }
 }

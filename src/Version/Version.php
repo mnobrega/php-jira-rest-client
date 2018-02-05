@@ -49,4 +49,34 @@ class Version implements \JsonSerializable
     {
         return array_filter(get_object_vars($this));
     }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function setStartDate(\DateTime $date)
+    {
+        $this->startDate = $date->format("Y-m-d");
+        return $this;
+    }
+
+    public function setReleaseDate(\DateTime $date)
+    {
+        $this->releaseDate = $date->format("Y-m-d ");
+        return $this;
+    }
+
+    public function setProjectId($projectId)
+    {
+        $this->projectId = $projectId;
+        return $this;
+    }
 }

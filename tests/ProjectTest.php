@@ -96,12 +96,13 @@ class ProjectTest extends PHPUnit_Framework_TestCase
         $prjtyp = $proj->getAccessibleProjectType('foobar');
     }
 
+    /**
+     * @throws \JiraRestApi\JiraException
+     */
     public function testGetProjectVersion()
     {
         $proj = new ProjectService();
-
         $prjs = $proj->getVersions('TEST');
-
         var_dump($prjs);
     }
 }
