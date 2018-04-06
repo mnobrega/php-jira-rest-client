@@ -46,4 +46,17 @@ class IssueLinkService extends \JiraRestApi\JiraClient
 
         return $linkTypes;
     }
+
+    /**
+     * @param $issueLinkId
+     * @return string
+     * @throws \JiraRestApi\JiraException
+     */
+    public function deleteIssueLink($issueLinkId)
+    {
+        $this->log->addInfo("deleteIssueLink=\n");
+        $ret = $this->exec($this->uri."/issueLink/$issueLinkId", '', 'DELETE');
+        $this->log->addInfo('delete issueLink '.$issueLinkId.' result='.var_export($ret, true));
+        return $ret;
+    }
 }
